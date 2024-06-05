@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jogo de Funções Matemáticas</title>
+    <link rel="stylesheet" href="styles.css">
+
+    <style>
+         body {
+             font-family: Arial, sans-serif;
+             text-align: center;
+             margin-top: 50px;
+             background-color: blue;
+        }
+        .score {
+            font-size: 2em;
+            margin: 20px;
+        }
+        .btn {
+            padding: 10px 20px;
+            font-size: 1em;
+            cursor: pointer;
+        }
+        body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.container {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+button {
+    margin: 5px;
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #ddd;
+}
+
+#tela {
+    margin-top: 20px;
+    font-weight: bold;
+}
+
+#proxp {
+    display: none;
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #28a745;
+    color: white;
+}
+
+#proxp:hover {
+    background-color: #218838;
+}
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Jogo de Funções Matemáticas</h1>
+        <p id="questao"></p>
+        <div id="options">
+            <button onclick="checkAnswer('par')">Par</button>
+            <button onclick="checkAnswer('ímpar')">Ímpar</button>
+            <button onclick="checkAnswer('crescente')">Crescente</button>
+            <button onclick="checkAnswer('decrescente')">Decrescente</button>
+            <button onclick="checkAnswer('composta')">Composta</button>
+        </div>
+        <p id="tela"></p>
+        <button id="proxp" onclick="nextQuestion()">Próxima Pergunta</button>
+    </div>
+    <div>
+        <div class="score">Pontuação: <span id="score">0</span></div>
+       
+    </div>
+    <script>const questions = [
+        { question: "f(x) = 2x + 1", answer: "crescente" },
+        { question: "f(x) = x^5 - x", answer: "ímpar" },
+        { question: "f(x) = (2x + 1)²", answer: "composta" },
+        { question: "f(x) = (x + 2)^2", answer: "composta" },
+        { question: "f(x) = x³", answer: "ímpar" },
+        { question: "f(x) = (x^2 - 1)/(x + 1)", answer: "composta" },
+        { question: "f(x) = x²", answer: "par" },
+        { question: "f(x) = -3x", answer: "decrescente" },
+        { question: "f(x) = -e^x", answer: "decrescente" },
+        { question: "f(x) = e^x", answer: "crescente" },
+        { question: "f(x) = x^4 - x² + 1", answer: "par" },
+        { question: "f(x) = 1/x", answer: "decrescente" },
+        { question: "f(x) = 3x^2 - 2x + 1", answer: "crescente" },
+        { question: "f(x) = (2x - 3)/(x + 1)", answer: "composta" }
+    ];
+    
+    let currentQuestion = 0;
+    
+    function loadQuestion() {
+        currentQuestion = Math.floor(Math.random() * questions.length)
+        document.getElementById('questao').textContent = questions[currentQuestion].question;
+        document.getElementById('tela').textContent = '';
+        document.getElementById('proxp').style.display = 'none';
+        Array.from(document.querySelectorAll('#options button')).forEach(button => button.disabled = false);
+    }
+    
+    function checkAnswer(answer) {
+        const correctAnswer = questions[currentQuestion].answer;
+        if (answer === correctAnswer) {
+            document.getElementById('tela').textContent = 'Correto!';
+            document.getElementById('tela').style.color = 'green';
+            incrementScore()
+        } else {
+            document.getElementById('tela').textContent = `Errado! A resposta correta é ${correctAnswer}.`;
+            document.getElementById('tela').style.color = 'red';
+            perdeu()
+        }
+
+        document.getElementById('proxp').style.display = 'block';
+        Array.from(document.querySelectorAll('#options button')).forEach(button => button.disabled = true);
+        }
+    
+    function nextQuestion() {
+        currentQuestion = (currentQuestion + 1) % questions.length;
+        loadQuestion();
+        }
+    
+    document.addEventListener('DOMContentLoaded', loadQuestion);</script>
+
+    <script>
+    let score = 0;
+
+        function incrementScore() {
+            score++;
+            document.getElementById('score').innerText = Pontuação = `${score}`;
+        }
+        function perdeu() {
+            score-=1;
+            document.getElementById('score').innerText = Pontuação = `${score}`;
+        }
+        function resetScore() {
+            score = 0;
+            document.getElementById('score').innerText = Pontuação = `${score}`;
+        }
+        </script>
+    
+</body>
+</html>
